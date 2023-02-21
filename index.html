@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <title>timer</title>
+</head>
+
+<body>
+    <main>
+        <h1>Timer</h1>
+        <div class="timer">
+            <div class="top-row">
+                <button class="btn btn-fill active"><i class="fa fa-hourglass-o" aria-hidden="true"></i>
+                    timer</button>
+                <button class="btn btn-fill"><i class="fa fa-clock-o" aria-hidden="true"></i>
+                    stopwatch</button>
+            </div>
+            <form id="timer-form" action="#">
+                <div class="middle-row">
+                    <div class="time-wrapper">
+                        00h 00m 00s
+                        <!-- <textarea name="" id="" cols="30" rows="10"></textarea> -->
+                    </div>
+                    <button class="btn hidden" type="submit">Submit</button>
+                    <div class="progress-bar"></div>
+                </div>
+                <div class="bottom-row">
+                    <div class="left">
+                        <button class="btn btn-simple active" type="button">Stop</button>
+                        <button class="btn btn-simple" type="reset">reset</button>
+                    </div>
+                    <div class="right">
+                        <button class="btn btn-icon" type="button">
+                            <i class="fa fa-volume-up" aria-hidden="true"></i>
+                            <i class="hidden fa fa-volume-off" aria-hidden="true"></i>
+
+                        </button>
+                        <button class="btn btn-icon" type="button">
+                            <i class="fa fa-arrows-alt" aria-hidden="true"></i>
+
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+    </main>
+
+
+
+    <script src="main.js"> </script>
+</body>
+
+</html>
