@@ -15,7 +15,7 @@ h1 {
 .hidden {
   display: none;
 }
-.timer {
+.timer-container {
   width: 100%;
   max-width: 650px;
   min-width: 250px;
@@ -31,11 +31,12 @@ h1 {
   width: 100%;
 }
 .middle-row {
+  font-size: 4vw;
+  width: 100%;
   border-bottom: 1px solid #dadce0;
   padding: 1rem 2rem;
 }
 .middle-row .time-wrapper {
-  font-size: 4vw;
   padding: 0.5em;
   width: fit-content;
 }
@@ -45,6 +46,25 @@ h1 {
 .middle-row {
   border-bottom: 1px solid #dadce0;
   position: relative;
+}
+#input-form {
+  padding: 1rem 0;
+}
+
+#timer {
+  font-size: 5vw;
+  padding: 1rem;
+  cursor: pointer;
+  background-color: transparent;
+  border: none;
+}
+#timer span {
+  pointer-events: none;
+}
+#timer small {
+  /* margin-left: -0.2em; */
+  font-size: 0.5em;
+  pointer-events: none;
 }
 .progress-bar {
   width: 10%;
@@ -118,7 +138,6 @@ h1 {
   border: none;
   font-size: 1rem;
   color: #8f8f8fb7;
-  /* margin-right: 1.5rem; */
 }
 .btn-icon:first-child {
   margin-right: 1.4rem;
@@ -126,4 +145,29 @@ h1 {
 
 .btn-icon:last-child {
   margin-right: 0.4rem;
+}
+
+input {
+  letter-spacing: 0.1em;
+  direction: rtl;
+  width: 2em;
+  font-size: inherit;
+  border: none;
+}
+input:hover,
+input:focus {
+  border: none;
+  outline: none;
+}
+label {
+  font-size: 0.5em;
+  margin-left: -0.5em;
+}
+audio {
+  visibility: hidden;
+}
+.btn.invalid {
+  pointer-events: none;
+  background-color: #dadce0;
+  border: none;
 }

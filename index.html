@@ -12,45 +12,50 @@
 <body>
     <main>
         <h1>Timer</h1>
-        <div class="timer">
+        <div class="timer-container">
             <div class="top-row">
                 <button class="btn btn-fill active"><i class="fa fa-hourglass-o" aria-hidden="true"></i>
                     timer</button>
                 <button class="btn btn-fill"><i class="fa fa-clock-o" aria-hidden="true"></i>
                     stopwatch</button>
             </div>
-            <form id="timer-form" action="#">
-                <div class="middle-row">
-                    <div class="time-wrapper">
-                        00h 00m 00s
-                        <!-- <textarea name="" id="" cols="30" rows="10"></textarea> -->
+            <div class="middle-row">
+                <button id="timer" class="bla" type="button">
+                    <span id="leftH"></span>
+                    <span id="leftM"></span>
+                    <span id="leftS">5 <small>s</small></span>
+                </button>
+                <form id="input-form" class="hidden" action="#">
+                    <div id="inputs" class="inputs-wrapper">
+                        <input id="h" name="h" id="h" type="number" min="0" max="99" tabindex="3" value="00">
+                        <label for="h">h</label>
+                        <input id="m" name="m" type="number" min="0" max="99" tabindex="2" value="00">
+                        <label for="m">m</label>
+                        <input id="s" type="number" min="0" max="99" name="s" tabindex="1" value="00">
+                        <label for="s">s</label>
                     </div>
-                    <button class="btn hidden" type="submit">Submit</button>
-                    <div class="progress-bar"></div>
+                </form>
+                <div class="progress-bar"></div>
+            </div>
+            <div class="bottom-row">
+                <div class="left">
+                    <button type="submit" form="input-form" class="btn btn-simple active" type="button">Pause</button>
+                    <button id="reset" class="btn btn-simple" type="reset">Reset</button>
                 </div>
-                <div class="bottom-row">
-                    <div class="left">
-                        <button class="btn btn-simple active" type="button">Stop</button>
-                        <button class="btn btn-simple" type="reset">reset</button>
-                    </div>
-                    <div class="right">
-                        <button class="btn btn-icon" type="button">
-                            <i class="fa fa-volume-up" aria-hidden="true"></i>
-                            <i class="hidden fa fa-volume-off" aria-hidden="true"></i>
+                <div class="right">
+                    <button id="toggle-sound" class="btn btn-icon" type="button">
+                        <i class=" fa fa-volume-off" aria-hidden="true"></i>
 
-                        </button>
-                        <button class="btn btn-icon" type="button">
-                            <i class="fa fa-arrows-alt" aria-hidden="true"></i>
+                    </button>
+                    <button class="btn btn-icon" type="button">
+                        <i class="fa fa-arrows-alt" aria-hidden="true"></i>
 
-                        </button>
-                    </div>
+                    </button>
                 </div>
-            </form>
+            </div>
         </div>
 
     </main>
-
-
 
     <script src="main.js"> </script>
 </body>

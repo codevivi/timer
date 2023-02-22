@@ -10,8 +10,17 @@ Design: google timer. Only for learning purposes.
 
 🌐 **Site published at**: [https://codevivi.github.io/timer](https://codevivi.github.io/timer)
 
-📈 **Status**: Working on
+📈 **Status**: Working on. Not well tested. Only timer
+
+⚠️ check/add issues on issues tab
 
 🎯 **Goals:**
 
-- [ ] JavaScript timer or stopwatch functionality
+- [x] JavaScript **timer** or stopwatch functionality
+
+🚀 **Features:**
+
+- Reset
+- Pause
+- Change time
+- Sound option
