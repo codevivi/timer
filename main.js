@@ -12,6 +12,7 @@ const hInput = document.querySelector("#h");
 const soundBtn = document.querySelector("#toggle-sound");
 const resetBtn = document.querySelector("#reset");
 const multiPurposeBtn = document.querySelector('button[form="input-form"]');
+const progressBar = document.querySelector(".progress-bar");
 ///elements
 ///variables
 let defaultTimer = {
@@ -26,6 +27,7 @@ let s = defaultTimer.s;
 let m = defaultTimer.m;
 let h = defaultTimer.h;
 let allInSeconds = h * 3600 + m * 60 + s;
+let allInSecondsDefault = allInSeconds;
 let isPaused = false;
 let isInSetTime = false;
 let isEndOfTimer = false;
@@ -88,8 +90,14 @@ function pause() {
   mInput.value = m;
   hInput.value = h;
 }
+function updateProgressBar() {
+  let progressWidth = ((allInSecondsDefault - allInSeconds) * 100) / allInSecondsDefault;
+  console.log(progressWidth, "progressbar");
+  progressBar.style.width = `${progressWidth}%`;
+}
 function startTimer() {
   isPaused = false;
+  updateProgressBar();
   multiPurposeBtn.textContent = "Stop";
   if (allInSeconds === 0) {
     sEl.innerHTML = `0<small>s</small>`;
@@ -98,6 +106,7 @@ function startTimer() {
     return;
   }
   intervalId = setInterval(() => {
+    updateProgressBar();
     if (allInSeconds <= 0) {
       clearInterval(intervalId);
       sEl.innerHTML = `0<small>s</small>`;
@@ -181,7 +190,10 @@ function setTimerValues(inputs) {
   defaultTimer.m = m;
   s = inputS;
   defaultTimer.s = s;
+  allInSecondsDefault = allInSeconds;
   displayInitialTimerValues();
+
+  updateProgressBar();
 }
 function pad0(num) {
   let str = num.toString();

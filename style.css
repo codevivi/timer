@@ -50,34 +50,7 @@ h1 {
 #input-form {
   padding: 1rem 0;
 }
-.inputs-wrapper {
-  display: inline-flex;
-  gap: 0.2em;
-}
-input {
-  display: block;
-  width: 100%;
-  padding-right: 0.1em;
-  border: none;
-  background-color: aliceblue;
-  letter-spacing: 0.1em;
-  font-size: 3rem;
-  direction: rtl;
-}
-input:hover,
-input:focus {
-  border: none;
-  outline: none;
-}
-label {
-  display: flex;
-  align-items: flex-end;
-  justify-content: flex-start;
-  line-height: 2.5;
-  background-color: aliceblue;
-  font-size: 1rem;
-  width: 6rem;
-}
+
 #timer {
   font-size: 2em;
   padding: 1rem;
@@ -94,12 +67,13 @@ label {
   pointer-events: none;
 }
 .progress-bar {
-  width: 10%;
+  width: 0;
   height: 4px;
   background-color: #4d90fe;
   position: absolute;
   bottom: -3px;
   left: 0;
+  transition: width 1s;
 }
 .bottom-row {
   display: inline-flex;
@@ -173,7 +147,36 @@ label {
 .btn-icon:last-child {
   margin-right: 0.4rem;
 }
-
+.inputs-wrapper {
+  display: inline-flex;
+  gap: 0.2em;
+}
+input {
+  display: block;
+  width: 100%;
+  padding-right: 0.1em;
+  border: none;
+  background-color: aliceblue;
+  letter-spacing: 0.1em;
+  font-size: 3rem;
+  direction: rtl;
+}
+input:hover,
+input:focus {
+  border: none;
+  outline: none;
+}
+label {
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-start;
+  line-height: 2.5;
+  background-color: aliceblue;
+  font-size: 1rem;
+  padding-right: 0.5rem;
+  /* width: fit-content; */
+  width: 6.5rem; /*What nonsense is this? 6.5 rem should be very large..*/
+}
 .btn.invalid {
   pointer-events: none;
   background-color: #dadce0;
