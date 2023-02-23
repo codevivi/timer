@@ -28,6 +28,7 @@ let m = defaultTimer.m;
 let h = defaultTimer.h;
 let allInSeconds = h * 3600 + m * 60 + s;
 let isPaused = false;
+let isInSetTime = false;
 let isEndOfTimer = false;
 let isInInput = false;
 let intervalId = null;
@@ -37,29 +38,19 @@ let intervalId = null;
 ///event listeners
 soundBtn.addEventListener("click", toggleSound);
 timerEl.addEventListener("click", enterTime);
-inputsForm.addEventListener("submit", timerAction);
+inputsForm.addEventListener("submit", timerAction); //multipurposeBtn
 resetBtn.addEventListener("click", resetTimer);
-
 ///event listeners
+
+//start timer
+setTimerValues(defaultTimer);
 startTimer();
+//start timer
 
 ///functions
-function enterTime(e) {
-  //when clicks on timer to change values
-  e.preventDefault();
-  resetBtn.classList.add("invalid");
-  if (endOfTimer) {
-    isEndOfTimer = false;
-    multiPurposeBtn.classList.remove("invalid");
-  }
-  if (intervalId) {
-    clearInterval(intervalId);
-    intervalId = null;
-    sInput.value = s;
-    mInput.value = m;
-    hInput.value = h;
-  }
-  multiPurposeBtn.textContent = "Start";
+function enterTime() {
+  isInSetTime = true;
+  pause();
   this.classList.add("hidden");
   inputsForm.classList.remove("hidden");
 }
@@ -67,42 +58,34 @@ function enterTime(e) {
 function timerAction(e) {
   //on submit or submit button stop/start
   e.preventDefault();
-  if (resetBtn.classList.contains("invalid")) {
-    resetBtn.classList.remove("invalid");
-  }
-  if (isEndOfTimer && !multiPurposeBtn.classList.contains("invalid")) {
-    isEndOfTimer = false;
-    if (isSoundOn) {
-      sound.pause();
-    }
-    multiPurposeBtn.classList.add("invalid");
+  if (isInSetTime) {
+    //will always be paused
+    let inputs = getFormData(inputsForm);
+    setTimerValues(inputs);
+    isInSetTime = false;
+    this.classList.add("hidden");
+    timerEl.classList.remove("hidden");
+    startTimer();
     return;
   }
   if (isPaused) {
     startTimer();
     return;
   }
-  if (intervalId) {
-    clearInterval(intervalId);
-    isPaused = true;
-    multiPurposeBtn.textContent = "Start";
-  } else {
-    let inputs = getFormData(inputsForm);
-    setTimerValues(inputs);
-    startTimer();
-    multiPurposeBtn.textContent = "Pause";
-    this.classList.add("hidden");
-    timerEl.classList.remove("hidden");
-  }
-  if (!this.classList.contains("hidden")) {
-    this.classList.add("hidden");
-    timerEl.classList.remove("hidden");
-  }
+  pause();
+}
+function pause() {
+  isPaused = true;
+  clearInterval(intervalId);
+  intervalId = null;
+  multiPurposeBtn.textContent = "Start";
+  sInput.value = s;
+  mInput.value = m;
+  hInput.value = h;
 }
 function startTimer() {
   isPaused = false;
   multiPurposeBtn.textContent = "Stop";
-  displayInitialTimerValues();
   intervalId = setInterval(() => {
     if (allInSeconds <= 0) {
       clearInterval(intervalId);
@@ -150,26 +133,14 @@ function endOfTimer() {
   isEndOfTimer = true;
 }
 function resetTimer() {
-  if (intervalId) {
-    clearInterval(intervalId);
-    intervalId = null;
-    isPaused = true;
+  if (!isPaused) {
+    //as might be paused if in time settings
+    pause();
   }
+  sInput.value = defaultTimer.s;
+  mInput.value = defaultTimer.m;
+  hInput.value = defaultTimer.h;
   setTimerValues(defaultTimer);
-  multiPurposeBtn.textContent = "start";
-  if (multiPurposeBtn.classList.contains("invalid")) {
-    multiPurposeBtn.classList.remove("invalid");
-  }
-  if (isEndOfTimer) {
-    isEndOfTimer = false;
-    if (isSoundOn) {
-      sound.pause();
-    }
-  }
-  displayInitialTimerValues();
-  sInput.value = s;
-  mInput.value = m;
-  hInput.value = h;
 }
 function setTimerValues(inputs) {
   ////first make sure you allow only numbers on input
@@ -177,6 +148,7 @@ function setTimerValues(inputs) {
   let inputM = Number(inputs.m);
   let inputS = Number(inputs.s);
   if (!inputH && !inputM && !inputS) {
+    //// ? use default?
     return;
   }
   allInSeconds = inputS + inputM * 60 + inputH * 3600;
@@ -197,6 +169,7 @@ function setTimerValues(inputs) {
   defaultTimer.m = m;
   s = inputS;
   defaultTimer.s = s;
+  displayInitialTimerValues();
 }
 function pad0(num) {
   let str = num.toString();
