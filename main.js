@@ -91,8 +91,7 @@ function pause() {
   hInput.value = h;
 }
 function updateProgressBar() {
-  let progressWidth = ((allInSecondsDefault - allInSeconds) * 100) / allInSecondsDefault;
-  console.log(progressWidth, "progressbar");
+  let progressWidth = Math.ceil(((allInSecondsDefault - allInSeconds) * 100) / allInSecondsDefault);
   progressBar.style.width = `${progressWidth}%`;
 }
 function startTimer() {
@@ -248,11 +247,8 @@ function toggleSound() {
 }
 
 function isNumberKey(evt) {
-  console.log(evt);
   var charCode = evt.charCode;
   if (charCode < 48 || charCode > 57) return false;
-  console.log(evt.target.value);
   if (evt.target.value + evt.key > 99) return false;
-
   return true;
 }

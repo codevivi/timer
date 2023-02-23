@@ -1,16 +1,16 @@
 # 🪧 Timer
 
-<!-- ![alt app screenshot](./screenshot.png) -->
+![alt app screenshot](./assets/screenshot.png)
 
 ## 📋 About
 
-2022-02-22 homework.
+2022-02-21 homework.
 
 Design: google timer. Only for learning purposes.
 
 🌐 **Site published at**: [https://codevivi.github.io/timer](https://codevivi.github.io/timer)
 
-📈 **Status**: Working on. Not well tested. Only timer
+📈 **Status**: Hours not well tested. Only timer
 
 ⚠️ check/add issues on issues tab
 
@@ -24,3 +24,4 @@ Design: google timer. Only for learning purposes.
 - Pause
 - Change time
 - Sound option
+- Progress bar
