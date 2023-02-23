@@ -1,6 +1,4 @@
 "use strict";
-/////todo
-//alow only numbers, check on input
 ///elements
 const timerEl = document.getElementById("timer");
 const hEl = document.getElementById("leftH");
@@ -23,6 +21,7 @@ let defaultTimer = {
 };
 let sound = new Audio("./assets/wake-up-call.mp3");
 let isSoundOn = false;
+let isPlayingSound = false;
 let s = defaultTimer.s;
 let m = defaultTimer.m;
 let h = defaultTimer.h;
@@ -49,6 +48,9 @@ startTimer();
 
 ///functions
 function enterTime() {
+  if (multiPurposeBtn.classList.contains("invalid")) {
+    multiPurposeBtn.classList.remove("invalid");
+  }
   isInSetTime = true;
   pause();
   this.classList.add("hidden");
@@ -58,6 +60,9 @@ function enterTime() {
 function timerAction(e) {
   //on submit or submit button stop/start
   e.preventDefault();
+  if (isEndOfTimer) {
+    removeEndOfTimer();
+  }
   if (isInSetTime) {
     //will always be paused
     let inputs = getFormData(inputsForm);
@@ -86,6 +91,12 @@ function pause() {
 function startTimer() {
   isPaused = false;
   multiPurposeBtn.textContent = "Stop";
+  if (allInSeconds === 0) {
+    sEl.innerHTML = `0<small>s</small>`;
+    sEl.innerHTML = `0<small>s</small>`;
+    multiPurposeBtn.classList.add("invalid");
+    return;
+  }
   intervalId = setInterval(() => {
     if (allInSeconds <= 0) {
       clearInterval(intervalId);
@@ -119,20 +130,25 @@ function startTimer() {
 }
 
 function endOfTimer() {
-  m = 0;
-  s = 0;
-  h = 0;
-
-  hEl.innerHTML = ``;
-  mEl.innerHTML = ``;
-  sEl.innerHTML = `0<small>s</small>`;
   if (isSoundOn) {
+    isPlayingSound = true;
     sound.play();
   }
-  multiPurposeBtn.textContent = "stop";
   isEndOfTimer = true;
 }
+function removeEndOfTimer() {
+  isEndOfTimer = false;
+  if (isPlayingSound) {
+    sound.pause();
+  }
+}
 function resetTimer() {
+  if (multiPurposeBtn.classList.contains("invalid")) {
+    multiPurposeBtn.classList.remove("invalid");
+  }
+  if (isEndOfTimer) {
+    removeEndOfTimer();
+  }
   if (!isPaused) {
     //as might be paused if in time settings
     pause();
@@ -147,10 +163,7 @@ function setTimerValues(inputs) {
   let inputH = Number(inputs.h);
   let inputM = Number(inputs.m);
   let inputS = Number(inputs.s);
-  if (!inputH && !inputM && !inputS) {
-    //// ? use default?
-    return;
-  }
+
   allInSeconds = inputS + inputM * 60 + inputH * 3600;
   if (inputS > 60) {
     let sSave = inputS;
@@ -162,7 +175,6 @@ function setTimerValues(inputs) {
     inputH += Math.floor(inputM / 60);
     inputM = mSave % 60;
   }
-  //   console.log(inputH, "h", inputM, "m", inputS, "s");
   h = inputH;
   defaultTimer.h = h;
   m = inputM;
@@ -203,12 +215,32 @@ function toggleSound() {
   if (!isSoundOn) {
     isSoundOn = true;
     //as not allowed if user not activated... is there a better way?
+    ///have to start and immediately stop on click to activate first time
+    //if already playing don not stop
     sound.play();
     sound.pause();
+    if (!isPlayingSound && isEndOfTimer) {
+      isPlayingSound = true;
+      sound.play();
+    }
     soundBtn.innerHTML = `<i class=" fa fa-volume-up" aria-hidden="true"></i>`;
     return;
   }
 
   isSoundOn = false;
+  if (isPlayingSound) {
+    sound.pause(); //if already playing
+    isPlayingSound = false;
+  }
   soundBtn.innerHTML = `<i class=" fa fa-volume-off" aria-hidden="true"></i>`;
+}
+
+function isNumberKey(evt) {
+  console.log(evt);
+  var charCode = evt.charCode;
+  if (charCode < 48 || charCode > 57) return false;
+  console.log(evt.target.value);
+  if (evt.target.value + evt.key > 99) return false;
+
+  return true;
 }

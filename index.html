@@ -28,15 +28,15 @@
                 <form id="input-form" class="hidden" action="#">
                     <div id="inputs" class="inputs-wrapper">
                         <label for="h">
-                            <input id="h" name="h" id="h" type="number" min="0" max="99" tabindex="3" value="00">
+                            <input id="h" onkeypress="return isNumberKey(event)" name="h" id="h" type="number" min="0" max="99" tabindex="3" value="00">
                             h
                         </label>
                         <label for="m">
-                            <input id="m" name="m" type="number" min="0" max="99" tabindex="2" value="00">
+                            <input id="m" name="m" onkeypress="return isNumberKey(event)" type="number" min="0" max="99" tabindex="2" value="00">
                             m
                         </label>
                         <label for="s">
-                            <input id="s" type="number" min="0" max="99" name="s" tabindex="1" value="00">
+                            <input id="s" onkeypress="return isNumberKey(event)" type="number" min="0" max="99" name="s" tabindex="1" value="00">
                             s
                         </label>
                     </div>
